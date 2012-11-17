@@ -14,7 +14,6 @@
 @interface TickerView ()
 {
     UILabel *_textLabel;
-    float _tickerTextLength;
     CGAffineTransform _transform;
 }
 
@@ -29,7 +28,6 @@
         self.layer.borderColor = [UIColor blackColor].CGColor;
         self.layer.borderWidth = 1.0f;
         self.clipsToBounds = YES;
-        // Nothing to see here
     }
     return self;
 }
@@ -56,13 +54,6 @@
 {
     UIFont *font = _textLabel.font;
     text = [self trimText:text forFont:font];
-    
-    CGRect frame = CGRectMake(_textLabel.frame.origin.x, _textLabel.frame.origin.y, kLabelWidth, 22.0f);
-    _textLabel.frame = frame;
-    
-    _textLabel.font = font;
-    _textLabel.backgroundColor = [UIColor clearColor];
-    _textLabel.textColor = [UIColor blackColor];
     _textLabel.text = text;
 }
 
