@@ -10,9 +10,9 @@
 
 @interface TickerView : UIView
 
+@property (nonatomic, assign) CGFloat segmentGap;
+
 - (void)setupTickerWithText:(NSString *)text andFont:(UIFont *)font;
 - (void)updateTickerWithText:(NSString *)text;
-- (void)toggleAnimation;
-- (BOOL)isPaused;
 
 @end

@@ -7,14 +7,50 @@
 //
 
 #import "TickerView.h"
+#import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
 
-#define kLabelWidth 300.0f
+#define kAnimationStepSize 50.0f
+#define kAnimationStepDuration 1.0f
+
+@interface TickerContentView : UIView
+
+@property (nonatomic, weak) UILabel *label;
+@property (nonatomic, readwrite) CGFloat segmentGap;
+@property (nonatomic, readwrite) CGFloat resetPoint;
+
+@end
+
+@implementation TickerContentView
+
+- (id)initWithFrame:(CGRect)frame
+{
+    self = [super initWithFrame:frame];
+    if (self)
+    {
+        self.backgroundColor = [UIColor clearColor];
+        self.clipsToBounds = NO;
+        self.layer.masksToBounds = NO;
+    }
+    return self;
+}
+
+- (void)drawRect:(CGRect)rect
+{
+    [self.label drawTextInRect:rect];
+    
+    CGSize size = [self.label.text sizeWithFont:self.label.font];
+    CGRect secondRect = CGRectMake(size.width + self.segmentGap, rect.origin.y, rect.size.width, rect.size.height);
+    
+    [self.label drawTextInRect:secondRect];
+}
+
+@end
 
 @interface TickerView ()
 {
     UILabel *_textLabel;
-    CATransform3D _transform;
+    TickerContentView *_contentView;
 }
 
 @end
@@ -27,7 +63,7 @@
     if (self) {
         self.layer.borderColor = [UIColor blackColor].CGColor;
         self.layer.borderWidth = 1.0f;
-        self.clipsToBounds = YES;
+        self.clipsToBounds = NO;
     }
     return self;
 }
@@ -38,40 +74,40 @@
     
     _textLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.frame.size.width, 0.0f, size.width, size.height)];
     _textLabel.font = font;
-    _textLabel.backgroundColor = [UIColor clearColor];
     _textLabel.textColor = [UIColor blackColor];
     _textLabel.text = text;
     
-    float translation = _textLabel.frame.size.width + self.frame.size.width;
-    _transform = CATransform3DMakeTranslation(0.0f - translation, 0.0f, 0.0f);
+    _contentView = [[TickerContentView alloc] initWithFrame:CGRectZero];
+    _contentView.label = _textLabel;
+    _contentView.segmentGap = 70.0f;
+    _contentView.frame = CGRectMake(self.frame.size.width, 0.0f, (size.width * 2) + _contentView.segmentGap, size.height);
+    _contentView.resetPoint = size.width + _contentView.segmentGap + fabs(self.frame.size.width - _contentView.segmentGap);
+    
+    [self addSubview:_contentView];
     
     [self startAnimation];
-    [self pauseLayer:_textLabel.layer];
-    
-    [self addSubview:_textLabel];
 }
 
 - (void)updateTickerWithText:(NSString *)text
 {
-    [UIView animateWithDuration:0.2f delay:0.0f options:UIViewAnimationOptionCurveLinear animations:^{
-        _textLabel.alpha = 0.0f;
+    UIFont *font = _textLabel.font;
+    CGSize size = [text sizeWithFont:font];
+    
+    _textLabel.text = text;
+    
+    [UIView animateWithDuration:0.3f delay:0.0f options:UIViewAnimationOptionBeginFromCurrentState animations:^{
+        _contentView.alpha = 0.0f;
     } completion:^(BOOL finished) {
-        _textLabel.text = text;
+        [self.layer removeAllAnimations];
         
-        UIFont *font = _textLabel.font;
-        CGSize size = [text sizeWithFont:font];
+        _contentView.frame = CGRectMake(_contentView.frame.origin.x, 0.0f, (size.width * 2) + _contentView.segmentGap, size.height);
+        _contentView.resetPoint = size.width + _contentView.segmentGap + fabs(self.frame.size.width - _contentView.segmentGap);
         
-        [self updateLabelBoundsWithSize:size];
+        self.bounds = CGRectMake(0.0f, 0.0f, self.bounds.size.width, self.bounds.size.height);
+        _contentView.alpha = 1.0f;
         
-        [UIView animateWithDuration:0.2f animations:^{
-            _textLabel.alpha = 1.0f;
-        }];
+        [_contentView setNeedsDisplay];
     }];
-}
-
-- (void)updateLabelBoundsWithSize:(CGSize)size
-{
-    _textLabel.layer.bounds = CGRectMake(0.0f, 0.0f, size.width, size.height);
 }
 
 - (void)setTickerTextFont:(UIFont *)font
@@ -81,46 +117,33 @@
 
 - (void)startAnimation
 {
-    [UIView animateWithDuration:5.0f delay:0.0f options:UIViewAnimationOptionCurveLinear animations:^{
-        _textLabel.layer.transform = _transform;
+    [UIView animateWithDuration:kAnimationStepDuration delay:0.0f options:UIViewAnimationOptionCurveLinear animations:^{
+        CGPoint point = self.bounds.origin;
+        point.x += kAnimationStepSize;
+        
+        self.bounds = CGRectMake(point.x, point.y, self.bounds.size.width, self.bounds.size.height);
     } completion:^(BOOL finished) {
-        _textLabel.transform = CGAffineTransformIdentity;
+        if (self.bounds.origin.x >= _contentView.resetPoint)
+        {
+            float deltax = fabs(self.bounds.origin.x - _contentView.resetPoint);
+            float x = fabs(self.frame.size.width - _contentView.segmentGap) + deltax;
+            
+            self.bounds = CGRectMake(x, 0.0f, self.bounds.size.width, self.bounds.size.height);
+        }
+        
         [self startAnimation];
     }];
 }
 
-- (void)toggleAnimation
+- (void)setSegmentGap:(CGFloat)segmentGap
 {
-    if ([self isPaused])
-    {
-        [self resumeLayer:_textLabel.layer];
-    }
-    else
-    {
-        [self pauseLayer:_textLabel.layer];
-    }
+    _contentView.segmentGap = segmentGap;
+    [self updateTickerWithText:_textLabel.text];
 }
 
-- (void)pauseLayer:(CALayer*)layer
+- (CGFloat)segmentGap
 {
-    CFTimeInterval pausedTime = [layer convertTime:CACurrentMediaTime() fromLayer:nil];
-    layer.speed = 0.0;
-    layer.timeOffset = pausedTime;
-}
-
-- (void)resumeLayer:(CALayer*)layer
-{
-    CFTimeInterval pausedTime = [layer timeOffset];
-    layer.speed = 1.0;
-    layer.timeOffset = 0.0;
-    layer.beginTime = 0.0;
-    CFTimeInterval timeSincePause = [layer convertTime:CACurrentMediaTime() fromLayer:nil] - pausedTime;
-    layer.beginTime = timeSincePause;
-}
-
-- (BOOL)isPaused
-{
-    return _textLabel.layer.speed == 0.0f;
+    return _contentView.segmentGap;
 }
 
 @end
