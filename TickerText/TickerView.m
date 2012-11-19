@@ -10,8 +10,7 @@
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
 
-#define kAnimationStepSize 50.0f
-#define kAnimationStepDuration 1.0f
+#define kAnimationStepSize 1.0f
 
 @interface TickerContentView : UIView
 
@@ -47,10 +46,13 @@
 
 @end
 
+//------------------------------------------------------------
+
 @interface TickerView ()
 {
     UILabel *_textLabel;
     TickerContentView *_contentView;
+    __weak CADisplayLink *_displayLink;
 }
 
 @end
@@ -63,7 +65,6 @@
     if (self) {
         self.layer.borderColor = [UIColor blackColor].CGColor;
         self.layer.borderWidth = 1.0f;
-        self.clipsToBounds = NO;
     }
     return self;
 }
@@ -84,8 +85,6 @@
     _contentView.resetPoint = size.width + _contentView.segmentGap + fabs(self.frame.size.width - _contentView.segmentGap);
     
     [self addSubview:_contentView];
-    
-    [self startAnimation];
 }
 
 - (void)updateTickerWithText:(NSString *)text
@@ -117,22 +116,31 @@
 
 - (void)startAnimation
 {
-    [UIView animateWithDuration:kAnimationStepDuration delay:0.0f options:UIViewAnimationOptionCurveLinear animations:^{
-        CGPoint point = self.bounds.origin;
-        point.x += kAnimationStepSize;
+    if (_displayLink == nil)
+    {
+        _displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(updateContentView:)];
+        [_displayLink addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
+    }
+}
+
+- (void)updateContentView:(id)sender
+{
+    CGPoint point = self.bounds.origin;
+    point.x += kAnimationStepSize;
+    
+    self.bounds = CGRectMake(point.x, point.y, self.bounds.size.width, self.bounds.size.height);
+    if (self.bounds.origin.x >= _contentView.resetPoint)
+    {
+        float deltax = fabs(self.bounds.origin.x - _contentView.resetPoint);
+        float x = fabs(self.frame.size.width - _contentView.segmentGap) + deltax;
         
-        self.bounds = CGRectMake(point.x, point.y, self.bounds.size.width, self.bounds.size.height);
-    } completion:^(BOOL finished) {
-        if (self.bounds.origin.x >= _contentView.resetPoint)
-        {
-            float deltax = fabs(self.bounds.origin.x - _contentView.resetPoint);
-            float x = fabs(self.frame.size.width - _contentView.segmentGap) + deltax;
-            
-            self.bounds = CGRectMake(x, 0.0f, self.bounds.size.width, self.bounds.size.height);
-        }
-        
-        [self startAnimation];
-    }];
+        self.bounds = CGRectMake(x, 0.0f, self.bounds.size.width, self.bounds.size.height);
+    }
+}
+
+- (void)stopAnimation
+{
+    [_displayLink invalidate];
 }
 
 - (void)setSegmentGap:(CGFloat)segmentGap

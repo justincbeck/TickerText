@@ -24,12 +24,12 @@
 {
     [super viewDidLoad];
    
+    updateTextField.delegate = self;
+    
     tickerView.layer.borderColor = [UIColor blackColor].CGColor;
     tickerView.layer.borderWidth = 1.0f;
     [tickerView setupTickerWithText:@"WNRN - Streaming Radio" andFont:[UIFont fontWithName:@"Futura-Medium" size:16.0f]];
-    [tickerView toggleAnimation];
-    
-    updateTextField.delegate = self;
+    [tickerView startAnimation];
 }
 
 - (IBAction)updateTicker:(id)sender {
@@ -38,6 +38,14 @@
         [tickerView updateTickerWithText:updateTextField.text];
     }
     [updateTextField resignFirstResponder];
+}
+
+- (IBAction)startAnimation:(id)sender {
+    [tickerView startAnimation];
+}
+
+- (IBAction)stopAnimation:(id)sender {
+    [tickerView stopAnimation];
 }
 
 - (void)didReceiveMemoryWarning
@@ -51,25 +59,14 @@
     // Nothing to see here
 }
 
-- (IBAction)toggleAnimation:(id)sender
-{
-    [tickerView toggleAnimation];
-}
-
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if (![tickerView isPaused])
-    {
-        [tickerView toggleAnimation];
-    }
+    [tickerView stopAnimation];
 }
 
 - (IBAction)rewindToMe:(UIStoryboardSegue *)sender
 {
-    if ([tickerView isPaused])
-    {
-        [tickerView toggleAnimation];
-    }
+    [tickerView startAnimation];
 }
 
 - (BOOL) textFieldShouldReturn:(UITextField *)textField

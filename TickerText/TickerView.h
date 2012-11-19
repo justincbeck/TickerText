@@ -15,4 +15,7 @@
 - (void)setupTickerWithText:(NSString *)text andFont:(UIFont *)font;
 - (void)updateTickerWithText:(NSString *)text;
 
+- (void)startAnimation;
+- (void)stopAnimation;
+
 @end
