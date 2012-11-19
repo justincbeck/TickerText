@@ -10,7 +10,7 @@
 #import "TickerView.h"
 #import <QuartzCore/QuartzCore.h>
 
-@interface ViewController ()
+@interface ViewController () <UITextFieldDelegate>
 {
     __weak IBOutlet TickerView *tickerView;
     __weak IBOutlet UITextField *updateTextField;
@@ -28,11 +28,16 @@
     tickerView.layer.borderWidth = 1.0f;
     [tickerView setupTickerWithText:@"WNRN - Streaming Radio" andFont:[UIFont fontWithName:@"Futura-Medium" size:16.0f]];
     [tickerView toggleAnimation];
-	// Do any additional setup after loading the view, typically from a nib.
+    
+    updateTextField.delegate = self;
 }
 
 - (IBAction)updateTicker:(id)sender {
-    [tickerView updateTickerWithText:updateTextField.text];
+    if (updateTextField.text.length > 0)
+    {
+        [tickerView updateTickerWithText:updateTextField.text];
+    }
+    [updateTextField resignFirstResponder];
 }
 
 - (void)didReceiveMemoryWarning
@@ -65,6 +70,12 @@
     {
         [tickerView toggleAnimation];
     }
+}
+
+- (BOOL) textFieldShouldReturn:(UITextField *)textField
+{
+    [self updateTicker:nil];
+    return YES;
 }
 
 @end

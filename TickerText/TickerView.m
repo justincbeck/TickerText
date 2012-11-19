@@ -14,7 +14,7 @@
 @interface TickerView ()
 {
     UILabel *_textLabel;
-    CGAffineTransform _transform;
+    CATransform3D _transform;
 }
 
 @end
@@ -34,15 +34,16 @@
 
 - (void)setupTickerWithText:(NSString *)text andFont:(UIFont *)font
 {
-    text = [self trimText:text forFont:font];
-    _textLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.frame.size.width, 0.0f, kLabelWidth, 22.0f)];
+    CGSize size = [text sizeWithFont:font];
+    
+    _textLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.frame.size.width, 0.0f, size.width, size.height)];
     _textLabel.font = font;
     _textLabel.backgroundColor = [UIColor clearColor];
     _textLabel.textColor = [UIColor blackColor];
     _textLabel.text = text;
     
     float translation = _textLabel.frame.size.width + self.frame.size.width;
-    _transform = CGAffineTransformTranslate(_textLabel.transform, 0.0f - translation, 0.0f);
+    _transform = CATransform3DMakeTranslation(0.0f - translation, 0.0f, 0.0f);
     
     [self startAnimation];
     [self pauseLayer:_textLabel.layer];
@@ -52,27 +53,25 @@
 
 - (void)updateTickerWithText:(NSString *)text
 {
-    UIFont *font = _textLabel.font;
-    text = [self trimText:text forFont:font];
-    _textLabel.text = text;
+    [UIView animateWithDuration:0.2f delay:0.0f options:UIViewAnimationOptionCurveLinear animations:^{
+        _textLabel.alpha = 0.0f;
+    } completion:^(BOOL finished) {
+        _textLabel.text = text;
+        
+        UIFont *font = _textLabel.font;
+        CGSize size = [text sizeWithFont:font];
+        
+        [self updateLabelBoundsWithSize:size];
+        
+        [UIView animateWithDuration:0.2f animations:^{
+            _textLabel.alpha = 1.0f;
+        }];
+    }];
 }
 
-- (NSString *)trimText:(NSString *)text forFont:(UIFont *)font
+- (void)updateLabelBoundsWithSize:(CGSize)size
 {
-    CGSize size = [text sizeWithFont:font];
-    
-    if (size.width > 295.0f)
-    {
-        while (size.width > 295.0f)
-        {
-            text = [text substringWithRange:NSMakeRange(0, [text length] - 1)];
-            size = [text sizeWithFont:font];
-        }
-        
-        text = [text stringByAppendingString:@"..."];
-    }
-    
-    return text;
+    _textLabel.layer.bounds = CGRectMake(0.0f, 0.0f, size.width, size.height);
 }
 
 - (void)setTickerTextFont:(UIFont *)font
@@ -83,7 +82,7 @@
 - (void)startAnimation
 {
     [UIView animateWithDuration:5.0f delay:0.0f options:UIViewAnimationOptionCurveLinear animations:^{
-        _textLabel.transform = _transform;
+        _textLabel.layer.transform = _transform;
     } completion:^(BOOL finished) {
         _textLabel.transform = CGAffineTransformIdentity;
         [self startAnimation];

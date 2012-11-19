@@ -46,7 +46,7 @@
                             <view clipsSubviews="YES" contentMode="scaleToFill" id="l91-bC-Sm8" customClass="TickerView">
                                 <rect key="frame" x="80" y="76" width="160" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="0.74796736239999995" green="0.74796736239999995" blue="0.74796736239999995" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="ELe-7u-Q26">
                                 <rect key="frame" x="124" y="262" width="75" height="44"/>
@@ -126,16 +126,9 @@
         <class className="TickerView" superclassName="UIView">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/TickerView.h"/>
         </class>
-        <class className="UIStoryboardSegue" superclassName="NSObject">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/UIStoryboardSegue.h"/>
-        </class>
         <class className="ViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/ViewController.h"/>
             <relationships>
-                <relationship kind="action" name="rewindToMe:" candidateClass="UIStoryboardSegue"/>
-                <relationship kind="action" name="showOtherController:"/>
-                <relationship kind="action" name="toggleAnimation:"/>
-                <relationship kind="action" name="updateTicker:"/>
                 <relationship kind="outlet" name="tickerView" candidateClass="TickerView"/>
                 <relationship kind="outlet" name="updateTextField" candidateClass="UITextField"/>
             </relationships>
