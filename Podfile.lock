@@ -1,0 +1,15 @@
+
+PODS:
+- MTTickerView (0.0.1)
+
+DEPENDENCIES:
+- MTTickerView (from `~/workspace/willowtree/ios/MTTickerView/')
+
+EXTERNAL SOURCES:
+  MTTickerView:
+    :local: ~/workspace/willowtree/ios/MTTickerView/
+
+SPEC CHECKSUMS:
+  MTTickerView: 96315749b17a9f4e48543c3f4a949ebb56740739
+
+COCOAPODS: 0.15.2

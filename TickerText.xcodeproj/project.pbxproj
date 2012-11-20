@@ -17,16 +17,17 @@
 		98FD3AE41656DCFE00F169C9 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 98FD3AE31656DCFE00F169C9 /* Default@2x.png */; };
 		98FD3AE61656DCFE00F169C9 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 98FD3AE51656DCFE00F169C9 /* Default-568h@2x.png */; };
 		98FD3AE91656DCFE00F169C9 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 98FD3AE71656DCFE00F169C9 /* MainStoryboard.storyboard */; };
-		98FD3AEC1656DCFE00F169C9 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 98FD3AEB1656DCFE00F169C9 /* ViewController.m */; };
+		98FD3AEC1656DCFE00F169C9 /* TickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 98FD3AEB1656DCFE00F169C9 /* TickerViewController.m */; };
 		98FD3AF31656E56F00F169C9 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 98FD3AF21656E56F00F169C9 /* QuartzCore.framework */; };
-		98FD3AF91657300B00F169C9 /* TickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 98FD3AF81657300B00F169C9 /* TickerView.m */; };
+		B156261765494835A248A815 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 655CA77D259344C9BDCA2A8D /* libPods.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		655CA77D259344C9BDCA2A8D /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		98FD3ACB1656DCFE00F169C9 /* TickerText.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TickerText.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		98FD3ACF1656DCFE00F169C9 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		98FD3AD11656DCFE00F169C9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		98FD3AD31656DCFE00F169C9 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		98FD3ACF1656DCFE00F169C9 /* UIKit.framework */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		98FD3AD11656DCFE00F169C9 /* Foundation.framework */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		98FD3AD31656DCFE00F169C9 /* CoreGraphics.framework */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		98FD3AD71656DCFE00F169C9 /* TickerText-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TickerText-Info.plist"; sourceTree = "<group>"; };
 		98FD3AD91656DCFE00F169C9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		98FD3ADB1656DCFE00F169C9 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -37,11 +38,10 @@
 		98FD3AE31656DCFE00F169C9 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		98FD3AE51656DCFE00F169C9 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		98FD3AE81656DCFE00F169C9 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
-		98FD3AEA1656DCFE00F169C9 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		98FD3AEB1656DCFE00F169C9 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		98FD3AF21656E56F00F169C9 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		98FD3AF71657300B00F169C9 /* TickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TickerView.h; sourceTree = "<group>"; };
-		98FD3AF81657300B00F169C9 /* TickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TickerView.m; sourceTree = "<group>"; };
+		98FD3AEA1656DCFE00F169C9 /* TickerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TickerViewController.h; sourceTree = "<group>"; };
+		98FD3AEB1656DCFE00F169C9 /* TickerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TickerViewController.m; sourceTree = "<group>"; };
+		98FD3AF21656E56F00F169C9 /* QuartzCore.framework */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		D0BC2DB697754DB8B6C98298 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +53,7 @@
 				98FD3AD01656DCFE00F169C9 /* UIKit.framework in Frameworks */,
 				98FD3AD21656DCFE00F169C9 /* Foundation.framework in Frameworks */,
 				98FD3AD41656DCFE00F169C9 /* CoreGraphics.framework in Frameworks */,
+				B156261765494835A248A815 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,6 +66,7 @@
 				98FD3AD51656DCFE00F169C9 /* TickerText */,
 				98FD3ACE1656DCFE00F169C9 /* Frameworks */,
 				98FD3ACC1656DCFE00F169C9 /* Products */,
+				D0BC2DB697754DB8B6C98298 /* Pods.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -83,6 +85,7 @@
 				98FD3ACF1656DCFE00F169C9 /* UIKit.framework */,
 				98FD3AD11656DCFE00F169C9 /* Foundation.framework */,
 				98FD3AD31656DCFE00F169C9 /* CoreGraphics.framework */,
+				655CA77D259344C9BDCA2A8D /* libPods.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -93,10 +96,8 @@
 				98FD3ADE1656DCFE00F169C9 /* AppDelegate.h */,
 				98FD3ADF1656DCFE00F169C9 /* AppDelegate.m */,
 				98FD3AE71656DCFE00F169C9 /* MainStoryboard.storyboard */,
-				98FD3AEA1656DCFE00F169C9 /* ViewController.h */,
-				98FD3AEB1656DCFE00F169C9 /* ViewController.m */,
-				98FD3AF71657300B00F169C9 /* TickerView.h */,
-				98FD3AF81657300B00F169C9 /* TickerView.m */,
+				98FD3AEA1656DCFE00F169C9 /* TickerViewController.h */,
+				98FD3AEB1656DCFE00F169C9 /* TickerViewController.m */,
 				98FD3AD61656DCFE00F169C9 /* Supporting Files */,
 			);
 			path = TickerText;
@@ -126,6 +127,7 @@
 				98FD3AC71656DCFE00F169C9 /* Sources */,
 				98FD3AC81656DCFE00F169C9 /* Frameworks */,
 				98FD3AC91656DCFE00F169C9 /* Resources */,
+				76F202F4281A4D7288A9D7DE /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -177,6 +179,23 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		76F202F4281A4D7288A9D7DE /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		98FD3AC71656DCFE00F169C9 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -184,8 +203,7 @@
 			files = (
 				98FD3ADC1656DCFE00F169C9 /* main.m in Sources */,
 				98FD3AE01656DCFE00F169C9 /* AppDelegate.m in Sources */,
-				98FD3AEC1656DCFE00F169C9 /* ViewController.m in Sources */,
-				98FD3AF91657300B00F169C9 /* TickerView.m in Sources */,
+				98FD3AEC1656DCFE00F169C9 /* TickerViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -263,6 +281,7 @@
 		};
 		98FD3AF01656DCFE00F169C9 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D0BC2DB697754DB8B6C98298 /* Pods.xcconfig */;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TickerText/TickerText-Prefix.pch";
@@ -274,6 +293,7 @@
 		};
 		98FD3AF11656DCFE00F169C9 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D0BC2DB697754DB8B6C98298 /* Pods.xcconfig */;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TickerText/TickerText-Prefix.pch";
@@ -302,6 +322,7 @@
 				98FD3AF11656DCFE00F169C9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

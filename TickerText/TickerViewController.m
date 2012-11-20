@@ -6,19 +6,19 @@
 //  Copyright (c) 2012 WillowTree Apps. All rights reserved.
 //
 
-#import "ViewController.h"
-#import "TickerView.h"
+#import "TickerViewController.h"
+#import <MTTickerView/MTTickerView.h>
 #import <QuartzCore/QuartzCore.h>
 
-@interface ViewController () <UITextFieldDelegate>
+@interface TickerViewController () <UITextFieldDelegate>
 {
-    __weak IBOutlet TickerView *tickerView;
+    __weak IBOutlet MTTickerView *tickerView;
     __weak IBOutlet UITextField *updateTextField;
 }
 
 @end
 
-@implementation ViewController
+@implementation TickerViewController
 
 - (void)viewDidLoad
 {
